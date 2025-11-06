@@ -1,0 +1,28 @@
+<h1>
+    Lista vagas
+</h1>
+
+<p>
+    Contador: {{ contador() }}
+    <button type="button" (click)="add()">
+        Adicionar
+    </button>
+</p>
+
+<div>
+    @if(nomes.length != 0){
+    <ul>
+        @for(nome of nomes; track $index){
+        <li>{{ nome }} - {{ $index }}</li>
+        }
+    </ul>
+    } @else {
+    <h4>Sem itens</h4>
+    }
+</div>
+
+<div>
+    <button type="button" (click)="carregarPedidos()">
+        Carregar
+    </button>
+</div>
