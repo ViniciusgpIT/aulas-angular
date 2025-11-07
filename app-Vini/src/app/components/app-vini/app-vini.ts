@@ -7,7 +7,6 @@ import { errorContext } from 'rxjs/internal/util/errorContext';
 
 import { PedidoVaga } from '../../models/pedido-vaga';
 import { GestorModelo } from '../../models/gestor-modelo';
-import { DepartamentoModelo } from '../../models/departamento-modelo';
 
 @Component({
   selector: 'app-lista-vagas',
