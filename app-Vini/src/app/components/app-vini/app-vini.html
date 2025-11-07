@@ -20,9 +20,63 @@
     <h4>Sem itens</h4>
     }
 </div>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Título
+                </th>
+                <th>
+                    Motivo
+                </th>
+                <th>
+                    Requisitos
+                </th>
+                <th>
+                    Quantidade
+                </th>
+                <th>
+                    Situação
+                </th>
+                <th>
+                    Gestor
+                </th>
+                <th>
+                    Data
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(pedido of pedidosVagas();track $index){
+
+            <tr>
+                <td>{{pedido.titulo}}</td>
+                <td>{{pedido.motivo}}</td>
+                <td>
+                    <ul>
+                        @for(requisito of pedido.requisitos; track $index){
+                        <li>{{requisito}}</li>
+                        }
+                    </ul>
+                </td>
+                <td>{{pedido.quantidade}}</td>
+                <td>{{pedido.aprovacao}}</td>
+                <td>
+                    @for(gestor of gestorModelo(); track $index){
+                    @if(pedido.gestorId == gestor.id){
+                    <p>{{gestor.nome}}</p>
+                    }
+                    }
+                </td>
+                <td>{{converteData(pedido.dataSolicitacao)}}</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 <div>
-    <button type="button" (click)="carregarPedidos()">
-        Carregar
-    </button>
+
+
 </div>
