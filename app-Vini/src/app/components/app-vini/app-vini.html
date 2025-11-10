@@ -61,7 +61,7 @@
                     </ul>
                 </td>
                 <td>{{pedido.quantidade}}</td>
-                <td>{{pedido.aprovacao}}</td>
+                <td [class]="voltaClasseStatus(pedido.aprovacao)">{{pedido.aprovacao}}</td>
                 <td>
                     @for(gestor of gestorModelo(); track $index){
                     @if(pedido.gestorId == gestor.id){

@@ -1,0 +1,37 @@
+h3 {
+    margin-bottom: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+
+    tr {
+        border-bottom: 1px solid black;
+        padding: 5px 2px;
+
+        th,
+        td {
+            text-align: center;
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        th:not(:last-child),
+        td:not(:last-child) {
+            border-right: 1px solid rgba(200, 200, 200, 0.5);
+        }
+
+        td.verde {
+            color: green;
+        }
+
+        td.amarelo {
+            color: goldenrod;
+        }
+
+        td.vermelho {
+            color: red
+        }
+    }
+}

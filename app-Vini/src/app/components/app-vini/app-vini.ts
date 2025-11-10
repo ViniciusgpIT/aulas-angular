@@ -29,7 +29,6 @@ export class AppVini implements OnInit {
   ngOnInit(): void {
     this.carregarPedidos()
     this.carregarGestor()
-    console.log('Componente iniciado')
   }
 
   add(): void {
@@ -38,7 +37,6 @@ export class AppVini implements OnInit {
   carregarPedidos(): void {
     this.vagasService.getPedidosVagas().subscribe({
       next: data => {
-        console.log(data)
         this.pedidosVagas.set(data)
       }, error: error => {
         console.log(error)
@@ -49,7 +47,6 @@ export class AppVini implements OnInit {
   carregarGestor(): void {
     this.gestorService.getGestor().subscribe({
       next: data2 => {
-        console.log(data2)
         this.gestorModelo.set(data2)
       }, error: error => {
         console.log(error)
@@ -61,5 +58,18 @@ export class AppVini implements OnInit {
   converteData(iso: string): string {
     let d = new Date(iso)
     return d.toLocaleDateString('pt-BR')
+  }
+
+  voltaClasseStatus(status: string): string {
+    switch (status) {
+      case 'Aprovado':
+        return 'verde'
+      case 'Pendente':
+        return 'amarelo'
+      case 'Reprovado':
+        return 'vermelho'
+      default:
+        return ''
+    }
   }
 }

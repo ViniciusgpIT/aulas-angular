@@ -26,7 +26,6 @@ export class ListaGestores implements OnInit {
   carregaDepartamentos(): void {
     this.departamentoService.getDepartamento().subscribe({
       next: data => {
-        console.log(data)
         this.departamentoModelo.set(data)
       }, error: error => {
         console.log(error)
@@ -37,7 +36,6 @@ export class ListaGestores implements OnInit {
   carregarGestor(): void {
     this.gestorService.getGestor().subscribe({
       next: data2 => {
-        console.log(data2)
         this.gestorModelo.set(data2)
       }, error: error => {
         console.log(error)
@@ -47,14 +45,14 @@ export class ListaGestores implements OnInit {
   }
 
   trocaIdPorNome(id: string): string {
-    {
-      let departamentoEncontrado = this.departamentoModelo().find(d => d.id == id)
-      if (departamentoEncontrado) {
-        return departamentoEncontrado.departamento
-      } else {
-        return 'N/A'
-      }
+
+    let departamentoEncontrado = this.departamentoModelo().find(d => d.id == id)
+    if (departamentoEncontrado) {
+      return departamentoEncontrado.departamento
+    } else {
+      return 'N/A'
     }
+
   }
 
 }

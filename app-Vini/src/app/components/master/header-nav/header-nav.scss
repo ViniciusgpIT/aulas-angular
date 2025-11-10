@@ -1,0 +1,35 @@
+header {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    box-shadow: -3px 11px 68px -22px rgba(0, 0, 0, 0.59);
+    -webkit-box-shadow: -3px 11px 68px -22px rgba(0, 0, 0, 0.59);
+    -moz-box-shadow: -3px 11px 68px -22px rgba(0, 0, 0, 0.59);
+    margin-bottom: 20px;
+    border-bottom: .5px solid rgba(0, 0, 0, 0.12);
+    background-color: black;
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        ul {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: end;
+            list-style: none;
+            gap: 15px;
+
+            li {
+                cursor: pointer;
+                color: white;
+            }
+            li.ativo{
+                border-bottom: 2px solid red;
+                font-weight: bold;
+            }
+        }
+    }
+}
