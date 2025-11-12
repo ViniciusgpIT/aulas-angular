@@ -22,3 +22,38 @@
         </tbody>
     </table>
 </div>
+
+<div>
+    <h3>Criar Gestor</h3>
+    <div>
+        <label>
+            Nome do novo Gestor
+            <input type="text" [(ngModel)]="objParaEnviar.nome" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Email do novo Gestor
+            <input type="text" [(ngModel)]="objParaEnviar.email" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Cargo do novo Gestor
+            <input type="text" [(ngModel)]="objParaEnviar.cargo" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Departamento do novo Gestor
+            <select type="text" [(ngModel)]="objParaEnviar.departamentoId">
+                @for(departamento of departamentoModelo();track $index){
+                <option [value]="departamento.id">{{departamento.departamento}}</option>
+                }
+            </select>
+        </label>
+    </div>
+    <button type="button" (click)="criarGestor()">
+        Criar
+    </button>
+</div>

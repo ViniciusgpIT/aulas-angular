@@ -1,5 +1,5 @@
 export interface PedidoVaga {
-    id: string;
+    id?: string;
     titulo: string;
     motivo: string;
     requisitos: string[];

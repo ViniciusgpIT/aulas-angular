@@ -10,46 +10,24 @@
 </p>
 
 <div>
-    @if(nomes.length != 0){
-    <ul>
-        @for(nome of nomes; track $index){
-        <li>{{ nome }} - {{ $index }}</li>
-        }
-    </ul>
-    } @else {
-    <h4>Sem itens</h4>
-    }
+    <button type="button" routerLink="./form-vagas" (click)="limparStorage()">Criar Vaga</button>
 </div>
 <div>
     <table>
         <thead>
             <tr>
-                <th>
-                    Título
-                </th>
-                <th>
-                    Motivo
-                </th>
-                <th>
-                    Requisitos
-                </th>
-                <th>
-                    Quantidade
-                </th>
-                <th>
-                    Situação
-                </th>
-                <th>
-                    Gestor
-                </th>
-                <th>
-                    Data
-                </th>
+                <th>Título</th>
+                <th>Motivo</th>
+                <th>Requisitos</th>
+                <th>Quantidade</th>
+                <th>Situação</th>
+                <th>Gestor</th>
+                <th>Data</th>
+                <th colspan="5">Opções</th>
             </tr>
         </thead>
         <tbody>
             @for(pedido of pedidosVagas();track $index){
-
             <tr>
                 <td>{{pedido.titulo}}</td>
                 <td>{{pedido.motivo}}</td>
@@ -70,13 +48,55 @@
                     }
                 </td>
                 <td>{{converteData(pedido.dataSolicitacao)}}</td>
+                
+                <!-- Botão Editar -->
+                <td>
+                    <button type="button" 
+                            (click)="salvarComponente(pedido.id)" 
+                            routerLink='./form-vagas'
+                            class="btn-editar">
+                        ✏️ Editar
+                    </button>
+                </td>
+                
+                <!-- Botões de Status -->
+                <td>
+                    <button type="button" 
+                            (click)="aprovarVaga(pedido.id)"
+                            [disabled]="pedido.aprovacao === 'Aprovado'"
+                            class="btn-aprovar">
+                        ✅ Aprovar
+                    </button>
+                </td>
+                <td>
+                    <button type="button" 
+                            (click)="reprovarVaga(pedido.id)"
+                            [disabled]="pedido.aprovacao === 'Reprovado'"
+                            class="btn-reprovar">
+                        ❌ Reprovar
+                    </button>
+                </td>
+
+                <!-- Botão Reabrir (opcional) -->
+                <td>
+                    <button type="button" 
+                            (click)="reabrirVaga(pedido.id)"
+                            [disabled]="pedido.aprovacao === 'Pendente'"
+                            class="btn-reabrir">
+                        🔄 Reabrir
+                    </button>
+                </td>
+                
+                <!-- Botão Deletar -->
+                <td>
+                    <button type="button" 
+                            (click)="deletarVaga(pedido.id)"
+                            class="btn-deletar">
+                        🗑️ Deletar
+                    </button>
+                </td>
             </tr>
             }
         </tbody>
     </table>
-</div>
-
-<div>
-
-
 </div>

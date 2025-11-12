@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="header">
+        <h1>{{ tituloPagina() }}</h1>
+        <button class="btn-secondary" routerLink="/departamentos">
+            ← Voltar para Departamentos
+        </button>
+    </div>
+
+    <nav class="nav-tabs">
+        <a routerLink="/departamentos" class="nav-tab">Departamentos</a>
+        <a routerLink="/funcionarios" class="nav-tab">Funcionários</a>
+    </nav>
+
+    @if (carregando()) {
+    <div class="loading">Carregando...</div>
+    } @else {
+    <form [formGroup]="departamentoForm" (ngSubmit)="salvar()" class="form">
+        <div class="form-group">
+            <label for="nome">Nome do Departamento *</label>
+            <input type="text" id="nome" formControlName="nome"
+                [class.error]="departamentoForm.get('nome')?.invalid && departamentoForm.get('nome')?.dirty"
+                placeholder="Digite o nome do departamento">
+            @if (departamentoForm.get('nome')?.invalid && departamentoForm.get('nome')?.dirty) {
+            <div class="error-message">
+                @if (departamentoForm.get('nome')?.errors?.['required']) {
+                Nome é obrigatório
+                }
+                @if (departamentoForm.get('nome')?.errors?.['minlength']) {
+                Nome deve ter pelo menos 2 caracteres
+                }
+            </div>
+            }
+        </div>
+
+        <div class="form-group">
+            <label for="local">Local *</label>
+            <input type="text" id="local" formControlName="local"
+                [class.error]="departamentoForm.get('local')?.invalid && departamentoForm.get('local')?.dirty"
+                placeholder="Digite o local do departamento">
+            @if (departamentoForm.get('local')?.invalid && departamentoForm.get('local')?.dirty) {
+            <div class="error-message">
+                @if (departamentoForm.get('local')?.errors?.['required']) {
+                Local é obrigatório
+                }
+                @if (departamentoForm.get('local')?.errors?.['minlength']) {
+                Local deve ter pelo menos 2 caracteres
+                }
+            </div>
+            }
+        </div>
+
+        <div class="form-actions">
+            <button type="button" class="btn-secondary" (click)="cancelar()">
+                Cancelar
+            </button>
+            <button type="submit" class="btn-primary" [disabled]="departamentoForm.invalid">
+                {{ textoBotao() }} Departamento
+            </button>
+        </div>
+    </form>
+    }
+</div>

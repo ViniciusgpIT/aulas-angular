@@ -1,0 +1,173 @@
+/* form-vagas.scss */
+
+/* Estilos para a lista de requisitos */
+.requisito-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background-color: #fafafa;
+}
+
+.requisito-view {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.requisito-texto {
+    flex: 1;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.requisito-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.requisito-edit {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.requisito-edit-input {
+    padding: 8px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.requisito-edit-actions {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
+}
+
+/* Botões de requisitos */
+.btn-editar-requisito {
+    background-color: #ffc107;
+    color: black;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-editar-requisito:hover {
+    background-color: #e0a800;
+}
+
+.btn-remover-requisito {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-remover-requisito:hover {
+    background-color: #c82333;
+}
+
+.btn-salvar-requisito {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-salvar-requisito:hover {
+    background-color: #218838;
+}
+
+.btn-cancelar-requisito {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-cancelar-requisito:hover {
+    background-color: #545b62;
+}
+
+/* Botões principais (mantidos do seu código anterior) */
+#botaoCriaEdit {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-criar {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-criar:hover {
+    background-color: #218838;
+}
+
+.btn-editar {
+    background-color: #ffc107;
+    color: black;
+}
+
+.btn-editar:hover {
+    background-color: #e0a800;
+}
+
+.btn-cancelar {
+    padding: 12px 24px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.btn-cancelar:hover {
+    background-color: #c82333;
+}
+
+/* Estilos gerais */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}

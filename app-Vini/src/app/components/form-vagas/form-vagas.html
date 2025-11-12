@@ -1,1 +1,107 @@
-<h2>Bagulho roudou</h2>
+<h2 id="tituloForm">{{ tituloFormulario() }}</h2>
+
+<div>
+    <label for="tituloVaga">Título</label>
+    <input type="text" id="tituloVaga" [(ngModel)]="objPedidoVaga.titulo">
+</div>
+
+<div>
+    <label for="motivoVaga">Motivo</label>
+    <input type="text" id="motivoVaga" [(ngModel)]="objPedidoVaga.motivo">
+</div>
+
+<div>
+    <p>Requisitos adicionados: {{ objPedidoVaga.requisitos.length }}</p>
+    <label for="requisitosVaga">Novo Requisito</label>
+    <input type="text" id="requisitosVaga" [(ngModel)]="requisito" (keyup.enter)="adicionarRequisito()">
+    <button type="button" (click)="adicionarRequisito()">Adicionar Requisito</button>
+
+    <!-- Lista de requisitos com opção de editar e remover -->
+    <div *ngIf="objPedidoVaga.requisitos.length > 0">
+        <h4>Requisitos da Vaga:</h4>
+        <ul>
+            <li *ngFor="let req of objPedidoVaga.requisitos; index as i" class="requisito-item">
+                
+                <!-- Modo visualização -->
+                <div *ngIf="!editandoRequisitos[i]" class="requisito-view">
+                    <span class="requisito-texto">{{ req }}</span>
+                    <div class="requisito-actions">
+                        <button type="button" (click)="ativarEdicaoRequisito(i)" class="btn-editar-requisito">
+                            ✏️ Editar
+                        </button>
+                        <button type="button" (click)="removerRequisito(i)" class="btn-remover-requisito">
+                            🗑️ Remover
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modo edição -->
+                <div *ngIf="editandoRequisitos[i]" class="requisito-edit">
+                    <input 
+                        type="text" 
+                        [(ngModel)]="requisitosEditaveis[i]"
+                        (keyup.enter)="salvarEdicaoRequisito(i)"
+                        class="requisito-edit-input"
+                    >
+                    <div class="requisito-edit-actions">
+                        <button type="button" (click)="salvarEdicaoRequisito(i)" class="btn-salvar-requisito">
+                            ✅ Salvar
+                        </button>
+                        <button type="button" (click)="cancelarEdicaoRequisito(i)" class="btn-cancelar-requisito">
+                            ❌ Cancelar
+                        </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div>
+    <label for="quantidadeVaga">Quantidade</label>
+    <select id="quantidadeVaga" [(ngModel)]="objPedidoVaga.quantidade">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+</div>
+
+<div>
+    <label for="dataVaga">Data</label>
+    <input type="date" id="dataVaga" [(ngModel)]="objPedidoVaga.dataSolicitacao">
+</div>
+
+<div>
+    <label for="gestorVaga">Gestor</label>
+    <select id="gestorVaga" [(ngModel)]="objPedidoVaga.gestorId">
+        @for(gestor of gestorModelo(); track $index){
+        <option [value]="gestor.id">{{ gestor.nome }}</option>
+        }
+    </select>
+</div>
+
+<div>
+    <!-- BOTÃO DINÂMICO -->
+    <button id="botaoCriaEdit" type="button" (click)="acaoPrincipal()" routerLink="/" 
+        [class.btn-editar]="isEditando()"
+        [class.btn-criar]="!isEditando()">
+        {{ textoBotao() }}
+    </button>
+
+    <!-- Botão para limpar/cancelar (aparece apenas no modo edição) -->
+    <button *ngIf="isEditando()" type="button" 
+        (click)="ativarModoCriacao(); limparFormulario(); limparStorage()"
+        class="btn-cancelar">
+        Cancelar Edição
+    </button>
+</div>
+
+<!-- Display do estado atual (debug) -->
+<div style="margin-top: 20px; padding: 10px; background: #f5f5f5;">
+    <strong>Estado atual:</strong><br>
+    Modo: {{ isEditando() ? 'EDIÇÃO' : 'CRIAÇÃO' }}<br>
+    ID da vaga: {{ vagaIdEditando() || 'Nenhum' }}<br>
+    Texto do botão: {{ textoBotao() }}
+</div>

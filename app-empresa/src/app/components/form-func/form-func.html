@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="header">
+    <h1>{{ tituloPagina() }}</h1>
+    <button class="btn-secondary" routerLink="/funcionarios">
+      ← Voltar para Funcionários
+    </button>
+  </div>
+
+  <nav class="nav-tabs">
+    <a routerLink="/departamentos" class="nav-tab">Departamentos</a>
+    <a routerLink="/funcionarios" class="nav-tab">Funcionários</a>
+  </nav>
+
+  @if (carregando()) {
+    <div class="loading">Carregando...</div>
+  } @else {
+    <form [formGroup]="funcionarioForm" (ngSubmit)="salvar()" class="form">
+      <div class="form-group">
+        <label for="nome">Nome do Funcionário *</label>
+        <input
+          type="text"
+          id="nome"
+          formControlName="nome"
+          [class.error]="funcionarioForm.get('nome')?.invalid && funcionarioForm.get('nome')?.dirty"
+          placeholder="Digite o nome do funcionário">
+        @if (funcionarioForm.get('nome')?.invalid && funcionarioForm.get('nome')?.dirty) {
+          <div class="error-message">
+            @if (funcionarioForm.get('nome')?.errors?.['required']) {
+              Nome é obrigatório
+            }
+            @if (funcionarioForm.get('nome')?.errors?.['minlength']) {
+              Nome deve ter pelo menos 2 caracteres
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="cargo">Cargo *</label>
+        <input
+          type="text"
+          id="cargo"
+          formControlName="cargo"
+          [class.error]="funcionarioForm.get('cargo')?.invalid && funcionarioForm.get('cargo')?.dirty"
+          placeholder="Digite o cargo do funcionário">
+        @if (funcionarioForm.get('cargo')?.invalid && funcionarioForm.get('cargo')?.dirty) {
+          <div class="error-message">
+            @if (funcionarioForm.get('cargo')?.errors?.['required']) {
+              Cargo é obrigatório
+            }
+            @if (funcionarioForm.get('cargo')?.errors?.['minlength']) {
+              Cargo deve ter pelo menos 2 caracteres
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="salario">Salário *</label>
+        <input
+          type="number"
+          id="salario"
+          formControlName="salario"
+          [class.error]="funcionarioForm.get('salario')?.invalid && funcionarioForm.get('salario')?.dirty"
+          placeholder="Digite o salário"
+          step="0.01"
+          min="0">
+        @if (funcionarioForm.get('salario')?.invalid && funcionarioForm.get('salario')?.dirty) {
+          <div class="error-message">
+            @if (funcionarioForm.get('salario')?.errors?.['required']) {
+              Salário é obrigatório
+            }
+            @if (funcionarioForm.get('salario')?.errors?.['min']) {
+              Salário deve ser maior ou igual a zero
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="departamentoId">Departamento *</label>
+        <select
+          id="departamentoId"
+          formControlName="departamentoId"
+          [class.error]="funcionarioForm.get('departamentoId')?.invalid && funcionarioForm.get('departamentoId')?.dirty">
+          <option value="">Selecione um departamento</option>
+          @for (departamento of departamentos(); track departamento.id) {
+            <option [value]="departamento.id">{{ departamento.nome }}</option>
+          }
+        </select>
+        @if (funcionarioForm.get('departamentoId')?.invalid && funcionarioForm.get('departamentoId')?.dirty) {
+          <div class="error-message">
+            Departamento é obrigatório
+          </div>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="cancelar()">
+          Cancelar
+        </button>
+        <button 
+          type="submit" 
+          class="btn-primary"
+          [disabled]="funcionarioForm.invalid">
+          {{ textoBotao() }} Funcionário
+        </button>
+      </div>
+    </form>
+  }
+</div>

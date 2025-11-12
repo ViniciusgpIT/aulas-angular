@@ -1,4 +1,4 @@
 export interface DepartamentoModelo {
-    id: string;
+    id?: string;
     departamento: string;
 }

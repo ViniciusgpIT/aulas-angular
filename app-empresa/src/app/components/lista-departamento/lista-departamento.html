@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="header">
+    <h1>Departamentos</h1>
+    <button class="btn-primary" (click)="novoDepartamento()">
+      + Novo Departamento
+    </button>
+  </div>
+
+  <nav class="nav-tabs">
+    <a routerLink="/departamentos" class="nav-tab active">Departamentos</a>
+    <a routerLink="/funcionarios" class="nav-tab">Funcionários</a>
+  </nav>
+
+  @if (carregando()) {
+    <div class="loading">Carregando departamentos...</div>
+  } @else {
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Local</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (departamento of departamentos(); track departamento.id) {
+            <tr>
+              <td>{{ departamento.nome }}</td>
+              <td>{{ departamento.local }}</td>
+              <td class="acoes">
+                <button 
+                  class="btn-editar" 
+                  (click)="editarDepartamento(departamento.id)">
+                  ✏️ Editar
+                </button>
+                <button 
+                  class="btn-funcionarios" 
+                  (click)="verFuncionarios(departamento.id)">
+                  👥 Funcionários
+                </button>
+                <button 
+                  class="btn-excluir" 
+                  (click)="deletarDepartamento(departamento.id)">
+                  🗑️ Excluir
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

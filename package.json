@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@angular/cli": "^20.3.8"
+    "@angular/cli": "^20.3.9",
+    "zone.js": "^0.15.1"
   }
 }

@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="header">
+    <h1>Funcionários</h1>
+    <button class="btn-primary" (click)="novoFuncionario()">
+      + Novo Funcionário
+    </button>
+  </div>
+
+  <nav class="nav-tabs">
+    <a routerLink="/departamentos" class="nav-tab">Departamentos</a>
+    <a routerLink="/funcionarios" class="nav-tab active">Funcionários</a>
+  </nav>
+
+  <!-- Filtros -->
+  <div class="filtros">
+    <label for="filtroDepartamento">Filtrar por Departamento:</label>
+    <select 
+      id="filtroDepartamento" 
+      [value]="filtroDepartamento()"
+      (change)="onFiltroChange($event)">
+      <option value="">Todos os departamentos</option>
+      @for (departamento of departamentos(); track departamento.id) {
+        <option [value]="departamento.id">{{ departamento.nome }}</option>
+      }
+    </select>
+    
+    @if (filtroDepartamento()) {
+      <button class="btn-secondary" (click)="limparFiltro()">
+        Limpar Filtro
+      </button>
+    }
+  </div>
+
+  @if (carregando()) {
+    <div class="loading">Carregando funcionários...</div>
+  } @else {
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Cargo</th>
+            <th>Salário</th>
+            <th>Departamento</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (funcionario of funcionariosFiltrados(); track funcionario.id) {
+            <tr>
+              <td>{{ funcionario.nome }}</td>
+              <td>{{ funcionario.cargo }}</td>
+              <td>{{ formatarSalario(funcionario.salario) }}</td>
+              <td>{{ getNomeDepartamento(funcionario.departamentoId) }}</td>
+              <td class="acoes">
+                <button 
+                  class="btn-editar" 
+                  (click)="editarFuncionario(funcionario.id)">
+                  ✏️ Editar
+                </button>
+                <button 
+                  class="btn-excluir" 
+                  (click)="deletarFuncionario(funcionario.id)">
+                  🗑️ Excluir
+                </button>
+              </td>
+            </tr>
+          }
+          @if (funcionariosFiltrados().length === 0) {
+            <tr>
+              <td colspan="5" class="sem-registros">
+                Nenhum funcionário encontrado
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

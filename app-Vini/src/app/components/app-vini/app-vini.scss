@@ -1,37 +1,129 @@
-h3 {
-    margin-bottom: 10px;
+/* app-vini.scss */
+
+/* Estilos para os botões de status */
+.btn-aprovar {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 2px;
 }
 
+.btn-aprovar:hover:not(:disabled) {
+    background-color: #218838;
+}
+
+.btn-aprovar:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn-reprovar {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 2px;
+}
+
+.btn-reprovar:hover:not(:disabled) {
+    background-color: #c82333;
+}
+
+.btn-reprovar:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn-editar {
+    background-color: #ffc107;
+    color: black;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 2px;
+}
+
+.btn-editar:hover {
+    background-color: #e0a800;
+}
+
+.btn-deletar {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 2px;
+}
+
+.btn-deletar:hover {
+    background-color: #545b62;
+}
+
+/* Estilos para os status */
+.verde {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.amarelo {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+.vermelho {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Estilos da tabela */
 table {
-    border-collapse: collapse;
     width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
 
-    tr {
-        border-bottom: 1px solid black;
-        padding: 5px 2px;
+th,
+td {
+    padding: 8px 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
 
-        th,
-        td {
-            text-align: center;
-            padding: 5px;
-            font-size: 14px;
-        }
+th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
 
-        th:not(:last-child),
-        td:not(:last-child) {
-            border-right: 1px solid rgba(200, 200, 200, 0.5);
-        }
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
-        td.verde {
-            color: green;
-        }
+tr:hover {
+    background-color: #e9ecef;
+}
 
-        td.amarelo {
-            color: goldenrod;
-        }
+/* Estilos para a lista de requisitos */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
 
-        td.vermelho {
-            color: red
-        }
-    }
+li {
+    padding: 2px 0;
+    font-size: 12px;
 }

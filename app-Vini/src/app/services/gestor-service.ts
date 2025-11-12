@@ -22,4 +22,11 @@ export class GestorService {
     return this.http.get<GestorModelo>(this.urlBAse + id)
   }
 
+  postCriarGestor(novoItem: GestorModelo): Observable<GestorModelo> {
+    return this.http.post<GestorModelo>(this.urlBAse, novoItem, {
+      headers: {
+        'Content-Type': 'json-application'
+      }
+    })
+  }
 }

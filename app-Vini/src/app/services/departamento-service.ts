@@ -22,4 +22,11 @@ export class DepartamentoService {
     return this.http.get<DepartamentoModelo>(this.urlBAse + id)
   }
 
+  postDepartamento(novoItem: DepartamentoModelo): Observable<DepartamentoModelo> {
+    return this.http.post<DepartamentoModelo>(this.urlBAse, novoItem, {
+      headers: {
+        'Content-Type': 'json-application'
+      }
+    })
+  }
 }
