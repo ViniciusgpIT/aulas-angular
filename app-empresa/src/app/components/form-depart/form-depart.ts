@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Departamento } from '../../models/departamento-model';
 import { DepartamentoService } from '../../services/departamento-service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-depart',
@@ -65,7 +66,7 @@ export class FormDepart implements OnInit {
       },
       error: (error) => {
         console.error('Erro ao carregar departamento:', error);
-        alert('Erro ao carregar departamento.');
+        Swal.fire('Erro!', 'Erro ao carregar departamento.', 'error');
         this.carregando.set(false);
       }
     });
@@ -83,12 +84,12 @@ export class FormDepart implements OnInit {
         this.departamentoService.atualizarDepartamento(this.departamentoId()!, departamento)
           .subscribe({
             next: () => {
-              alert('Departamento atualizado com sucesso!');
+              Swal.fire('Sucesso!', 'Departamento atualizado com sucesso!', 'success');
               this.router.navigate(['/departamentos']);
             },
             error: (error) => {
               console.error('Erro ao atualizar departamento:', error);
-              alert('Erro ao atualizar departamento.');
+              Swal.fire('Erro!', 'Erro ao atualizar departamento.', 'error');
             }
           });
       } else {
@@ -96,17 +97,18 @@ export class FormDepart implements OnInit {
         this.departamentoService.criarDepartamento(this.departamentoForm.value)
           .subscribe({
             next: () => {
-              alert('Departamento criado com sucesso!');
+              Swal.fire('Sucesso!', 'Departamento criado com sucesso!', 'success');
               this.router.navigate(['/departamentos']);
             },
             error: (error) => {
               console.error('Erro ao criar departamento:', error);
-              alert('Erro ao criar departamento.');
+              Swal.fire('Erro!', 'Erro ao criar departamento.', 'error');
             }
           });
       }
     } else {
       this.marcarCamposComoSujos();
+      Swal.fire('Atenção!', 'Preencha todos os campos obrigatórios.', 'warning');
     }
   }
 

@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Departamento } from '../../models/departamento-model';
 import { DepartamentoService } from '../../services/departamento-service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-departamento',
@@ -32,7 +33,7 @@ export class ListaDepartamento implements OnInit {
       error: (error) => {
         console.error('Erro ao carregar departamentos:', error);
         this.carregando.set(false);
-        alert('Erro ao carregar departamentos');
+        Swal.fire('Erro!', 'Erro ao carregar departamentos', 'error');
       }
     });
   }
@@ -46,15 +47,28 @@ export class ListaDepartamento implements OnInit {
 
   // Corrigido: Aceita string | undefined
   deletarDepartamento(id: string | undefined): void {
-    if (id && confirm('Tem certeza que deseja excluir este departamento?')) {
-      this.departamentoService.deletarDepartamento(id).subscribe({
-        next: () => {
-          alert('Departamento excluído com sucesso!');
-          this.carregarDepartamentos();
-        },
-        error: (error) => {
-          console.error('Erro ao excluir departamento:', error);
-          alert('Erro ao excluir departamento.');
+    if (id) {
+      Swal.fire({
+        title: 'Tem certeza?',
+        text: 'Deseja excluir este departamento?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sim, excluir!',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.departamentoService.deletarDepartamento(id).subscribe({
+            next: () => {
+              Swal.fire('Excluído!', 'Departamento excluído com sucesso!', 'success');
+              this.carregarDepartamentos();
+            },
+            error: (error) => {
+              console.error('Erro ao excluir departamento:', error);
+              Swal.fire('Erro!', 'Erro ao excluir departamento.', 'error');
+            }
+          });
         }
       });
     }

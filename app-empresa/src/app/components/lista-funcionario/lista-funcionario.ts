@@ -5,6 +5,7 @@ import { Funcionario } from '../../models/funcionario-model';
 import { Departamento } from '../../models/departamento-model';
 import { FuncionarioService } from '../../services/funcionario-service';
 import { DepartamentoService } from '../../services/departamento-service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-funcionario',
@@ -21,8 +22,8 @@ export class ListaFuncionario implements OnInit {
   funcionariosFiltrados = computed(() => {
     const filtro = this.filtroDepartamento();
     if (!filtro) return this.funcionarios();
-    
-    return this.funcionarios().filter(func => 
+
+    return this.funcionarios().filter(func =>
       func.departamentoId === filtro
     );
   });
@@ -32,7 +33,7 @@ export class ListaFuncionario implements OnInit {
     private departamentoService: DepartamentoService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.carregarDados();
@@ -41,7 +42,7 @@ export class ListaFuncionario implements OnInit {
 
   carregarDados(): void {
     this.carregando.set(true);
-    
+
     this.funcionarioService.getFuncionarios().subscribe({
       next: (data) => {
         this.funcionarios.set(data);
@@ -50,7 +51,7 @@ export class ListaFuncionario implements OnInit {
       error: (error) => {
         console.error('Erro ao carregar funcionários:', error);
         this.carregando.set(false);
-        alert('Erro ao carregar funcionários');
+        Swal.fire('Erro!', 'Erro ao carregar funcionários', 'error');
       }
     });
   }
@@ -90,15 +91,28 @@ export class ListaFuncionario implements OnInit {
 
   // Corrigido: Aceita string | undefined
   deletarFuncionario(id: string | undefined): void {
-    if (id && confirm('Tem certeza que deseja excluir este funcionário?')) {
-      this.funcionarioService.deletarFuncionario(id).subscribe({
-        next: () => {
-          alert('Funcionário excluído com sucesso!');
-          this.carregarDados();
-        },
-        error: (error) => {
-          console.error('Erro ao excluir funcionário:', error);
-          alert('Erro ao excluir funcionário.');
+    if (id) {
+      Swal.fire({
+        title: 'Tem certeza?',
+        text: 'Deseja excluir este funcionário?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sim, excluir!',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.funcionarioService.deletarFuncionario(id).subscribe({
+            next: () => {
+              Swal.fire('Excluído!', 'Funcionário excluído com sucesso!', 'success');
+              this.carregarDados();
+            },
+            error: (error) => {
+              console.error('Erro ao excluir funcionário:', error);
+              Swal.fire('Erro!', 'Erro ao excluir funcionário.', 'error');
+            }
+          });
         }
       });
     }

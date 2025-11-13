@@ -6,6 +6,7 @@ import { Funcionario } from '../../models/funcionario-model';
 import { Departamento } from '../../models/departamento-model';
 import { FuncionarioService } from '../../services/funcionario-service';
 import { DepartamentoService } from '../../services/departamento-service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-func',
@@ -20,11 +21,11 @@ export class FormFunc implements OnInit {
   funcionarioId = signal<string | null>(null);
   carregando = signal(true);
 
-  tituloPagina = computed(() => 
+  tituloPagina = computed(() =>
     this.isEditando() ? 'Editar Funcionário' : 'Novo Funcionário'
   );
 
-  textoBotao = computed(() => 
+  textoBotao = computed(() =>
     this.isEditando() ? 'Atualizar' : 'Criar'
   );
 
@@ -59,14 +60,14 @@ export class FormFunc implements OnInit {
       },
       error: (error) => {
         console.error('Erro ao carregar departamentos:', error);
-        alert('Erro ao carregar departamentos');
+        Swal.fire('Erro!', 'Erro ao carregar departamentos', 'error');
       }
     });
   }
 
   private verificarModo(): void {
     const id = this.route.snapshot.params['id'];
-    
+
     if (id) {
       this.isEditando.set(true);
       this.funcionarioId.set(id);
@@ -84,7 +85,7 @@ export class FormFunc implements OnInit {
       },
       error: (error) => {
         console.error('Erro ao carregar funcionário:', error);
-        alert('Erro ao carregar funcionário.');
+        Swal.fire('Erro!', 'Erro ao carregar funcionário.', 'error');
         this.carregando.set(false);
       }
     });
@@ -98,16 +99,16 @@ export class FormFunc implements OnInit {
           ...this.funcionarioForm.value,
           id: this.funcionarioId()!
         };
-        
+
         this.funcionarioService.atualizarFuncionario(this.funcionarioId()!, funcionario)
           .subscribe({
             next: () => {
-              alert('Funcionário atualizado com sucesso!');
+              Swal.fire('Sucesso!', 'Funcionário atualizado com sucesso!', 'success');
               this.router.navigate(['/funcionarios']);
             },
             error: (error) => {
               console.error('Erro ao atualizar funcionário:', error);
-              alert('Erro ao atualizar funcionário.');
+              Swal.fire('Erro!', 'Erro ao atualizar funcionário.', 'error');
             }
           });
       } else {
@@ -115,17 +116,18 @@ export class FormFunc implements OnInit {
         this.funcionarioService.criarFuncionario(this.funcionarioForm.value)
           .subscribe({
             next: () => {
-              alert('Funcionário criado com sucesso!');
+              Swal.fire('Sucesso!', 'Funcionário criado com sucesso!', 'success');
               this.router.navigate(['/funcionarios']);
             },
             error: (error) => {
               console.error('Erro ao criar funcionário:', error);
-              alert('Erro ao criar funcionário.');
+              Swal.fire('Erro!', 'Erro ao criar funcionário.', 'error');
             }
           });
       }
     } else {
       this.marcarCamposComoSujos();
+      Swal.fire('Atenção!', 'Preencha todos os campos obrigatórios.', 'warning');
     }
   }
 
